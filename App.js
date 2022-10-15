@@ -74,12 +74,13 @@ const imagesList = [
   },
 ]
 import {Text, View, Image, FlatList } from 'react-native';
+import Thumbnail from './components/Thumbnail';
 
 export default function App() {
   const [activeImageId, setActiveImageId] = useState(imagesList[0].id)
 
-  const renderImageItem = ({item}) => {
-    setActiveImageId(item.id)
+  const renderImageItem = ({id}) => {
+    setActiveImageId(imagesList[id].id)
   }
   
 
@@ -93,14 +94,8 @@ export default function App() {
           data={imagesList}
           keyExtractor={item => item.id}
           horizontal
-          // showsHorizontalScrollIndicator={false}
           renderItem={({item}) => (
-            <Image
-              className="w-10 h-10 m-1 rounded"
-              source={{uri: item.thumbnailUrl}}
-              alt={item.thumbnailAltText}
-              onPress={renderImageItem}
-            />
+            <Thumbnail renderImageItem={renderImageItem} item={item} key={item.id}/>
           )}
         />
       </View>
